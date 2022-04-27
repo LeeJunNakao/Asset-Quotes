@@ -3,7 +3,7 @@ module.exports = {
         {
             method: 'GET',
             path: '/asset-price/search',
-            handler: 'asset-price.find',
+            handler: 'asset-price.search',
         },
     ]
 }

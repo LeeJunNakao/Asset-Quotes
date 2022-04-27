@@ -8,15 +8,16 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "closeDate": {
       "type": "date"
     },
-    "price": {
-      "type": "decimal"
+    "closePrice": {
+      "type": "decimal",
+      "required": true
     },
     "currency": {
       "type": "string"

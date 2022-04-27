@@ -23,7 +23,7 @@ const findItemByDate = date => i => dateToString(i.date).match(new RegExp(date))
 const getItem = (items, date) => key => [key.split(".")[0], items[key].find(findItemByDate(date))]
 const parseResponse = ([key, item]) => [key, {
     date: dateToString(item.date),
-    closePrice: Number((item.close * 100).toFixed(0)),
+    closePrice: item.close,
     currency: 'BRL'
 }]
 
@@ -59,7 +59,7 @@ module.exports = createCoreService('api::asset-price.asset-price', ({ strapi }) 
 
             await strapi.service('api::asset-price.asset-price')
 
-
+            // return Object.fromEntries([code, parsedResponse]);
             return [code, parsedResponse];
         });
 
@@ -86,7 +86,13 @@ module.exports = createCoreService('api::asset-price.asset-price', ({ strapi }) 
                 where: { asset: { name: code }, closeDate: date, currency },
             })
 
-            if (quote) return quote
+            if (quote) return {
+                [code]: {
+                    date: quote.closeDate,
+                    closePrice: quote.closePrice,
+                    currency: quote.currency
+                }
+            }
 
             const asset = await strapi.service('api::asset-price.asset-price').searchAssetEntity(code, exchange);
             const externalQuote = await strapi.service('api::asset-price.asset-price').searchExternalQuotes({ assetCodes, source, date, currency, exchange })
@@ -96,7 +102,7 @@ module.exports = createCoreService('api::asset-price.asset-price', ({ strapi }) 
                     asset,
                     closeDate: date,
                     currency,
-                    price: externalQuote.closePrice
+                    closePrice: externalQuote[code].closePrice
                 }
             })
 
