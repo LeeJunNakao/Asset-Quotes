@@ -1,0 +1,36 @@
+{
+  "name": "asset-quotes",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Get asset quotes",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "eslint": "^8.14.0"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.1.8",
+    "@strapi/plugin-users-permissions": "4.1.8",
+    "@strapi/strapi": "4.1.8",
+    "axios": "^0.27.2",
+    "pg": "8.6.0",
+    "strapi-plugin-config-sync": "^1.0.0",
+    "yahoo-finance": "^0.3.7"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "d077a8cc-9966-4ef1-8dfe-109f3ca0a2bb"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

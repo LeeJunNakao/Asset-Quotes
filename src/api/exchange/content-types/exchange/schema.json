@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exchanges",
+  "info": {
+    "singularName": "exchange",
+    "pluralName": "exchanges",
+    "displayName": "exchange"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

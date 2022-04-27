@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assets",
+  "info": {
+    "singularName": "asset",
+    "pluralName": "assets",
+    "displayName": "asset"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "exchange": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::exchange.exchange"
+    },
+    "asset_prices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asset-price.asset-price",
+      "mappedBy": "asset"
+    }
+  }
+}

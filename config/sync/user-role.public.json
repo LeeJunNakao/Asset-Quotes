@@ -1,0 +1,37 @@
+{
+  "name": "Public",
+  "description": "Default role given to unauthenticated user.",
+  "type": "public",
+  "permissions": [
+    {
+      "action": "api::asset-price.asset-price.create"
+    },
+    {
+      "action": "api::asset-price.asset-price.delete"
+    },
+    {
+      "action": "api::asset-price.asset-price.find"
+    },
+    {
+      "action": "api::asset-price.asset-price.findOne"
+    },
+    {
+      "action": "api::asset-price.asset-price.search"
+    },
+    {
+      "action": "api::asset-price.asset-price.update"
+    },
+    {
+      "action": "plugin::users-permissions.auth.callback"
+    },
+    {
+      "action": "plugin::users-permissions.auth.connect"
+    },
+    {
+      "action": "plugin::users-permissions.auth.register"
+    },
+    {
+      "action": "plugin::users-permissions.user.me"
+    }
+  ]
+}
