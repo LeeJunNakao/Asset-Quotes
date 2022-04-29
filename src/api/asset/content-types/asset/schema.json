@@ -20,10 +20,10 @@
       "relation": "oneToOne",
       "target": "api::exchange.exchange"
     },
-    "asset_prices": {
+    "asset_quotes": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::asset-price.asset-price",
+      "target": "api::asset-quote.asset-quote",
       "mappedBy": "asset"
     }
   }

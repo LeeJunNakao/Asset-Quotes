@@ -4,22 +4,10 @@
   "type": "public",
   "permissions": [
     {
-      "action": "api::asset-price.asset-price.create"
+      "action": "api::asset-quote.asset-quote.find"
     },
     {
-      "action": "api::asset-price.asset-price.delete"
-    },
-    {
-      "action": "api::asset-price.asset-price.find"
-    },
-    {
-      "action": "api::asset-price.asset-price.findOne"
-    },
-    {
-      "action": "api::asset-price.asset-price.search"
-    },
-    {
-      "action": "api::asset-price.asset-price.update"
+      "action": "api::asset-quote.asset-quote.findOne"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

@@ -49,17 +49,17 @@
           "sortable": true
         }
       },
-      "asset_prices": {
+      "asset_quotes": {
         "edit": {
-          "label": "asset_prices",
+          "label": "asset_quotes",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true,
-          "mainField": "currency"
+          "mainField": "Currency"
         },
         "list": {
-          "label": "asset_prices",
+          "label": "asset_quotes",
           "searchable": false,
           "sortable": false
         }
@@ -110,7 +110,7 @@
       ],
       "editRelations": [
         "exchange",
-        "asset_prices"
+        "asset_quotes"
       ]
     }
   },

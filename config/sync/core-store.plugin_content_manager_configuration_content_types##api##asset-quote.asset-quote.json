@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::asset-price.asset-price",
+  "key": "plugin_content_manager_configuration_content_types::api::asset-quote.asset-quote",
   "value": {
-    "uid": "api::asset-price.asset-price",
+    "uid": "api::asset-quote.asset-quote",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "asset",
-      "defaultSortBy": "asset",
+      "mainField": "Currency",
+      "defaultSortBy": "Currency",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -16,6 +16,35 @@
         "edit": {},
         "list": {
           "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "asset": {
+        "edit": {
+          "label": "asset",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "asset",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "closePrice": {
+        "edit": {
+          "label": "closePrice",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "closePrice",
           "searchable": true,
           "sortable": true
         }
@@ -34,45 +63,16 @@
           "sortable": true
         }
       },
-      "price": {
+      "Currency": {
         "edit": {
-          "label": "price",
+          "label": "Currency",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "price",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "currency": {
-        "edit": {
-          "label": "currency",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "currency",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "asset": {
-        "edit": {
-          "label": "asset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "asset",
+          "label": "Currency",
           "searchable": true,
           "sortable": true
         }
@@ -110,11 +110,18 @@
       "list": [
         "id",
         "asset",
-        "closeDate",
-        "price"
+        "closePrice",
+        "closeDate"
+      ],
+      "editRelations": [
+        "asset"
       ],
       "edit": [
         [
+          {
+            "name": "closePrice",
+            "size": 4
+          },
           {
             "name": "closeDate",
             "size": 4
@@ -122,16 +129,11 @@
         ],
         [
           {
-            "name": "price",
-            "size": 4
-          },
-          {
-            "name": "currency",
+            "name": "Currency",
             "size": 6
           }
         ]
-      ],
-      "editRelations": []
+      ]
     }
   },
   "type": "object",

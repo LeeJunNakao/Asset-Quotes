@@ -2,8 +2,8 @@ module.exports = {
     routes: [
         {
             method: 'GET',
-            path: '/asset-price/search',
-            handler: 'asset-price.search',
+            path: '/asset-quote/search',
+            handler: 'asset-quote.search',
         },
     ]
 }

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "asset_quotes",
+  "info": {
+    "singularName": "asset-quote",
+    "pluralName": "asset-quotes",
+    "displayName": "AssetQuote"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "asset": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::asset.asset",
+      "inversedBy": "asset_quotes"
+    },
+    "closePrice": {
+      "type": "decimal"
+    },
+    "closeDate": {
+      "type": "date"
+    },
+    "Currency": {
+      "type": "string"
+    }
+  }
+}

@@ -1369,10 +1369,10 @@
           "relation": "oneToOne",
           "target": "api::exchange.exchange"
         },
-        "asset_prices": {
+        "asset_quotes": {
           "type": "relation",
           "relation": "oneToMany",
-          "target": "api::asset-price.asset-price",
+          "target": "api::asset-quote.asset-quote",
           "mappedBy": "asset"
         },
         "createdAt": {
@@ -1423,10 +1423,10 @@
             "relation": "oneToOne",
             "target": "api::exchange.exchange"
           },
-          "asset_prices": {
+          "asset_quotes": {
             "type": "relation",
             "relation": "oneToMany",
-            "target": "api::asset-price.asset-price",
+            "target": "api::asset-quote.asset-quote",
             "mappedBy": "asset"
           }
         },
@@ -1441,34 +1441,33 @@
       "actions": {},
       "lifecycles": {}
     },
-    "api::asset-price.asset-price": {
+    "api::asset-quote.asset-quote": {
       "kind": "collectionType",
-      "collectionName": "asset_prices",
+      "collectionName": "asset_quotes",
       "info": {
-        "singularName": "asset-price",
-        "pluralName": "asset-prices",
-        "displayName": "assetPrice",
-        "description": ""
+        "singularName": "asset-quote",
+        "pluralName": "asset-quotes",
+        "displayName": "AssetQuote"
       },
       "options": {
         "draftAndPublish": true
       },
       "pluginOptions": {},
       "attributes": {
-        "closeDate": {
-          "type": "date"
-        },
-        "price": {
-          "type": "decimal"
-        },
-        "currency": {
-          "type": "string"
-        },
         "asset": {
           "type": "relation",
           "relation": "manyToOne",
           "target": "api::asset.asset",
-          "inversedBy": "asset_prices"
+          "inversedBy": "asset_quotes"
+        },
+        "closePrice": {
+          "type": "decimal"
+        },
+        "closeDate": {
+          "type": "date"
+        },
+        "Currency": {
+          "type": "string"
         },
         "createdAt": {
           "type": "datetime"
@@ -1504,42 +1503,41 @@
         }
       },
       "__schema__": {
-        "collectionName": "asset_prices",
+        "collectionName": "asset_quotes",
         "info": {
-          "singularName": "asset-price",
-          "pluralName": "asset-prices",
-          "displayName": "assetPrice",
-          "description": ""
+          "singularName": "asset-quote",
+          "pluralName": "asset-quotes",
+          "displayName": "AssetQuote"
         },
         "options": {
           "draftAndPublish": true
         },
         "pluginOptions": {},
         "attributes": {
-          "closeDate": {
-            "type": "date"
-          },
-          "price": {
-            "type": "decimal"
-          },
-          "currency": {
-            "type": "string"
-          },
           "asset": {
             "type": "relation",
             "relation": "manyToOne",
             "target": "api::asset.asset",
-            "inversedBy": "asset_prices"
+            "inversedBy": "asset_quotes"
+          },
+          "closePrice": {
+            "type": "decimal"
+          },
+          "closeDate": {
+            "type": "date"
+          },
+          "Currency": {
+            "type": "string"
           }
         },
         "kind": "collectionType"
       },
       "modelType": "contentType",
-      "modelName": "asset-price",
+      "modelName": "asset-quote",
       "connection": "default",
-      "uid": "api::asset-price.asset-price",
-      "apiName": "asset-price",
-      "globalId": "AssetPrice",
+      "uid": "api::asset-quote.asset-quote",
+      "apiName": "asset-quote",
+      "globalId": "AssetQuote",
       "actions": {},
       "lifecycles": {}
     },
