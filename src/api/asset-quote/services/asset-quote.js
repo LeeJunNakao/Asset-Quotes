@@ -5,6 +5,7 @@
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
+const { InexistentAsset } = require('../../../utils/aux-entity');
 const { InvalidExchangeError } = require("../../../utils/errors");
 
 
@@ -41,10 +42,11 @@ module.exports = createCoreService('api::asset-quote.asset-quote', ({ strapi }) 
         const parsedInternal = strapi.service('api::asset-quote.internal-quotes').parseInternalQuotes(internalQuotes);
         const parsedExternal = strapi.service('api::asset-quote.external-quotes').parseExternalQuotes(externalQuotes);
 
+
         return { ...parsedInternal, ...parsedExternal };
     },
     saveQuotes: async (quotes, exchange) => {
-        const promises = Object.entries(quotes).filter(([_key, quote]) => quote).map(async ([key, quote]) => {
+        const promises = Object.entries(quotes).filter(([_key, quote]) => quote || !(quote instanceof InexistentAsset)).map(async ([key, quote]) => {
             const { closePrice, date: closeDate, currency } = quote;
             const asset = await strapi.service('api::asset-quote.asset-quote').searchAssetEntity(key, exchange);
 

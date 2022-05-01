@@ -1,3 +1,5 @@
+const { InexistentAsset } = require("../../../utils/aux-entity");
+const { formatSearchResult } = require("../../../utils/parser");
 
 module.exports = {
     searchInternalQuotes: async ({ assetCodes, source, date, currency, exchange }) => {
@@ -15,7 +17,8 @@ module.exports = {
         return Promise.all(promises)
     },
     parseInternalQuotes: (quotes) => {
-        const validInternalQuotes = quotes.filter(([code, result]) => result);
+        const validInternalQuotes = quotes.map(([code, result]) => [code, formatSearchResult(result)]);
+
         return Object.fromEntries(validInternalQuotes);
     },
     formatSearchedQuote: (quote) => {

@@ -12,7 +12,7 @@ module.exports = createCoreController('api::asset-quote.asset-quote', ({ strapi 
     search: async (ctx) => {
         try {
             const { assets, source, date, currency } = ctx.query;
-            const parsedAssets = assets.replace(/[\[\]]/g, '').split(",");
+            const parsedAssets = assets.replace(/[\[\]]/g, '').split(",").map(i => i.trim());
 
             const result = await strapi.service('api::asset-quote.asset-quote').searchAsset({ assetCodes: parsedAssets, source, date, currency });
 
@@ -21,6 +21,5 @@ module.exports = createCoreController('api::asset-quote.asset-quote', ({ strapi 
             if (error instanceof GenericError) return setErrorResponse(ctx, error);
             return setErrorResponse(ctx, new SearchFailed());
         }
-
     },
 }));

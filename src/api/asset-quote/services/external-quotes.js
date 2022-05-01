@@ -1,4 +1,5 @@
 const { InexistentAsset } = require("../../../utils/aux-entity");
+const { formatSearchResult } = require("../../../utils/parser");
 
 module.exports = {
     searchExternalQuotes: async (params) => {
@@ -15,7 +16,8 @@ module.exports = {
         return await service(params);
     },
     parseExternalQuotes: (quotes) => {
-        const validExternalQuotes = Object.entries(quotes).filter(([_code, result]) => !(result instanceof InexistentAsset));
+        const validExternalQuotes = Object.entries(quotes).map(([code, result]) => [code, formatSearchResult(result)]);
+
         return Object.fromEntries(validExternalQuotes)
     }
 }

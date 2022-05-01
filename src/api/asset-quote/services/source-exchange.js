@@ -2,13 +2,13 @@ const yahooFinance = require('yahoo-finance');
 const axios = require('axios');
 const { dateToString, dateToMilliseconds, dateToSeconds } = require("../../../utils/parser")
 const { InvalidCurrencyError } = require("../../../utils/errors");
+const { InexistentAsset } = require('../../../utils/aux-entity');
 
 module.exports = {
     searchB3: async ({ assetCodes, date, currency }) => {
         if (currency !== 'BRL') throw new InvalidCurrencyError();
         const parsedCodes = assetCodes.map(code => `${code}.SA`);
 
-        console.log("???????????????????????????????????????", parsedCodes)
         const result = await yahooFinance.historical({
             symbols: parsedCodes,
         });
@@ -20,15 +20,41 @@ module.exports = {
     parseB3Result: async ({ result, date }) => {
         const formatKey = (key) => key.split(".")[0];
         const parseAdapter = (fn) => ([key, quotes]) => [key, fn(quotes)];
+        const checkAssetValidity = ([key, quotes]) => [key, quotes.length === 0 ? new InexistentAsset(key) : quotes];
         const byDate = i => dateToString(i.date).match(new RegExp(date));
-        const selectItemByDate = (quotes) => quotes.find(byDate) || null
-        const formatQuote = (quote) => quote ? ({
-            date: dateToString(quote.date),
-            closePrice: quote.close.toFixed(2),
-            currency: 'BRL'
-        }) : null
+        const selectItemByDate = (quotes) => {
+            if (quotes instanceof InexistentAsset) return quotes;
 
-        return Object.entries(result).map(([key, value]) => [formatKey(key), value]).map(parseAdapter(selectItemByDate)).map(parseAdapter(formatQuote));
+            return quotes.find(byDate) || null
+        }
+        const formatQuote = (quote) => {
+            if (quote instanceof InexistentAsset) return quote;
+
+            return quote ? ({
+                date: dateToString(quote.date),
+                closePrice: quote.close.toFixed(2),
+                currency: 'BRL'
+            }) : null
+        }
+        const formatResponse = (result) => {
+            if (result instanceof InexistentAsset) return {
+                data: null,
+                error: result
+            };
+
+            return {
+                data: result
+            }
+        }
+
+        const parsed = Object.entries(result)
+            .map(([key, value]) => [formatKey(key), value])
+            .map(checkAssetValidity)
+            .map(parseAdapter(selectItemByDate))
+            .map(parseAdapter(formatQuote))
+        // .map(parseAdapter(formatResponse))
+
+        return parsed;
     },
     searchCrypto: async ({ assetCodes, date, currency }) => {
         const promises = assetCodes.map(async code => {
@@ -50,6 +76,7 @@ module.exports = {
         });
 
         const result = await Promise.all(promises);
+
         return Object.fromEntries(result)
     },
 }

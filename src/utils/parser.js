@@ -1,3 +1,5 @@
+const { InexistentAsset } = require("./aux-entity");
+
 const dateToString = (date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -31,9 +33,23 @@ const dateToMilliseconds = (date) => {
     return new Date(date).getTime();
 }
 
+const formatSearchResult = (result) => {
+    if (result instanceof InexistentAsset) {
+        return {
+            data: null,
+            error: result,
+        }
+    }
+
+    return {
+        data: result
+    }
+}
+
 module.exports = {
     dateToString,
     dateToSeconds,
-    dateToMilliseconds
+    dateToMilliseconds,
+    formatSearchResult
 }
 
