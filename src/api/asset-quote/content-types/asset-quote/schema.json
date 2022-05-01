@@ -4,10 +4,11 @@
   "info": {
     "singularName": "asset-quote",
     "pluralName": "asset-quotes",
-    "displayName": "AssetQuote"
+    "displayName": "AssetQuote",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -23,7 +24,7 @@
     "closeDate": {
       "type": "date"
     },
-    "Currency": {
+    "currency": {
       "type": "string"
     }
   }

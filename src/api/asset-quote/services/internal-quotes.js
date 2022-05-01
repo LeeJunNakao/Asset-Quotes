@@ -7,7 +7,9 @@ module.exports = {
                 where: { asset: { name: code }, closeDate: date, currency },
             })
 
-            return [code, quote]
+            const parsedQuote = strapi.service('api::asset-quote.internal-quotes').formatSearchedQuote(quote);
+
+            return [code, parsedQuote]
         });
 
         return Promise.all(promises)
@@ -15,5 +17,12 @@ module.exports = {
     parseInternalQuotes: (quotes) => {
         const validInternalQuotes = quotes.filter(([code, result]) => result);
         return Object.fromEntries(validInternalQuotes);
+    },
+    formatSearchedQuote: (quote) => {
+        if (!quote) return quote;
+
+        const { createdAt, updatedAt, id, ...parsedQuote } = quote;
+
+        return parsedQuote;
     }
 }

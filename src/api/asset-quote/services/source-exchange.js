@@ -1,21 +1,34 @@
-const { createCoreService } = require('@strapi/strapi').factories;
 const yahooFinance = require('yahoo-finance');
 const axios = require('axios');
 const { dateToString, dateToMilliseconds, dateToSeconds } = require("../../../utils/parser")
+const { InvalidCurrencyError } = require("../../../utils/errors");
 
 module.exports = {
-    searchB3: async ({ assetCodes, date }) => {
+    searchB3: async ({ assetCodes, date, currency }) => {
+        if (currency !== 'BRL') throw new InvalidCurrencyError();
         const parsedCodes = assetCodes.map(code => `${code}.SA`);
 
+        console.log("???????????????????????????????????????", parsedCodes)
         const result = await yahooFinance.historical({
             symbols: parsedCodes,
         });
 
-        const parsedResult = Object.keys(result)
-            .map(getItem(result, date))
-            .map(parseResponse);
+        const parsedResult = await strapi.service('api::asset-quote.source-exchange').parseB3Result({ result, date });
 
         return Object.fromEntries(parsedResult);
+    },
+    parseB3Result: async ({ result, date }) => {
+        const formatKey = (key) => key.split(".")[0];
+        const parseAdapter = (fn) => ([key, quotes]) => [key, fn(quotes)];
+        const byDate = i => dateToString(i.date).match(new RegExp(date));
+        const selectItemByDate = (quotes) => quotes.find(byDate) || null
+        const formatQuote = (quote) => quote ? ({
+            date: dateToString(quote.date),
+            closePrice: quote.close.toFixed(2),
+            currency: 'BRL'
+        }) : null
+
+        return Object.entries(result).map(([key, value]) => [formatKey(key), value]).map(parseAdapter(selectItemByDate)).map(parseAdapter(formatQuote));
     },
     searchCrypto: async ({ assetCodes, date, currency }) => {
         const promises = assetCodes.map(async code => {

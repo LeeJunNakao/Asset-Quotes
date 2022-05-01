@@ -2,6 +2,7 @@ const { InexistentAsset } = require("../../../utils/aux-entity");
 
 module.exports = {
     searchExternalQuotes: async (params) => {
+        if (!params.assetCodes.length) return {}
         const { source } = params;
 
         const serviceOptions = {

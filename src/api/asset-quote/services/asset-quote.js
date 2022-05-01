@@ -5,16 +5,7 @@
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
-const { dateToString } = require("../../../utils/parser");
-const { InexistentAsset } = require("../../../utils/aux-entity");
-
-const findItemByDate = date => i => dateToString(i.date).match(new RegExp(date));
-const getItem = (items, date) => key => [key.split(".")[0], items[key].find(findItemByDate(date))]
-const parseResponse = ([key, item]) => [key, {
-    date: dateToString(item.date),
-    closePrice: Number((item.close * 100).toFixed(0)),
-    currency: 'BRL'
-}]
+const { InvalidExchangeError } = require("../../../utils/errors");
 
 
 module.exports = createCoreService('api::asset-quote.asset-quote', ({ strapi }) => ({
@@ -34,18 +25,15 @@ module.exports = createCoreService('api::asset-quote.asset-quote', ({ strapi }) 
 
         if (exchange) return exchange;
 
-        // return await strapi.db.query('api::exchange.exchange').create({
-        //     data: {
-        //         name: source
-        //     }
-        // })
+        throw new InvalidExchangeError();
+
     },
     searchQuotes: async ({ assetCodes, source, date, currency, exchange }) => {
         const internalQuotes = await strapi.service('api::asset-quote.internal-quotes').searchInternalQuotes({ assetCodes, source, date, currency, exchange })
-
         const notStoredAssets = internalQuotes.filter(([_code, quote]) => !quote).map(([code]) => code);
-
         const externalQuotes = await strapi.service('api::asset-quote.external-quotes').searchExternalQuotes({ assetCodes: notStoredAssets, source, date, currency, exchange });
+
+        await strapi.service('api::asset-quote.asset-quote').saveQuotes(externalQuotes, exchange);
 
         return strapi.service('api::asset-quote.asset-quote').parseQuotes(internalQuotes, externalQuotes);
     },
@@ -55,6 +43,23 @@ module.exports = createCoreService('api::asset-quote.asset-quote', ({ strapi }) 
 
         return { ...parsedInternal, ...parsedExternal };
     },
+    saveQuotes: async (quotes, exchange) => {
+        const promises = Object.entries(quotes).filter(([_key, quote]) => quote).map(async ([key, quote]) => {
+            const { closePrice, date: closeDate, currency } = quote;
+            const asset = await strapi.service('api::asset-quote.asset-quote').searchAssetEntity(key, exchange);
+
+            return strapi.db.query('api::asset-quote.asset-quote').create({
+                data: {
+                    asset,
+                    closeDate,
+                    closePrice,
+                    currency
+                }
+            })
+        })
+
+        return Promise.all(promises);
+    },
     searchAssetEntity: async (code, exchange) => {
         const asset = await strapi.db.query('api::asset.asset').findOne({
             select: '*',
@@ -63,11 +68,11 @@ module.exports = createCoreService('api::asset-quote.asset-quote', ({ strapi }) 
 
         if (asset) return asset;
 
-        // return await strapi.db.query('api::asset.asset').create({
-        //     data: {
-        //         name: code,
-        //         exchange
-        //     }
-        // })
+        return await strapi.db.query('api::asset.asset').create({
+            data: {
+                name: code,
+                exchange
+            }
+        })
     },
 }));
