@@ -1353,7 +1353,8 @@
       "info": {
         "singularName": "asset",
         "pluralName": "assets",
-        "displayName": "asset"
+        "displayName": "asset",
+        "description": ""
       },
       "options": {
         "draftAndPublish": false
@@ -1407,7 +1408,8 @@
         "info": {
           "singularName": "asset",
           "pluralName": "assets",
-          "displayName": "asset"
+          "displayName": "asset",
+          "description": ""
         },
         "options": {
           "draftAndPublish": false
@@ -1447,10 +1449,11 @@
       "info": {
         "singularName": "asset-quote",
         "pluralName": "asset-quotes",
-        "displayName": "AssetQuote"
+        "displayName": "AssetQuote",
+        "description": ""
       },
       "options": {
-        "draftAndPublish": true
+        "draftAndPublish": false
       },
       "pluginOptions": {},
       "attributes": {
@@ -1466,7 +1469,7 @@
         "closeDate": {
           "type": "date"
         },
-        "Currency": {
+        "currency": {
           "type": "string"
         },
         "createdAt": {
@@ -1474,12 +1477,6 @@
         },
         "updatedAt": {
           "type": "datetime"
-        },
-        "publishedAt": {
-          "type": "datetime",
-          "configurable": false,
-          "writable": true,
-          "visible": false
         },
         "createdBy": {
           "type": "relation",
@@ -1507,10 +1504,11 @@
         "info": {
           "singularName": "asset-quote",
           "pluralName": "asset-quotes",
-          "displayName": "AssetQuote"
+          "displayName": "AssetQuote",
+          "description": ""
         },
         "options": {
-          "draftAndPublish": true
+          "draftAndPublish": false
         },
         "pluginOptions": {},
         "attributes": {
@@ -1526,7 +1524,7 @@
           "closeDate": {
             "type": "date"
           },
-          "Currency": {
+          "currency": {
             "type": "string"
           }
         },

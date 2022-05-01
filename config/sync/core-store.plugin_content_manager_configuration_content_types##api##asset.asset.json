@@ -56,7 +56,7 @@
           "placeholder": "",
           "visible": true,
           "editable": true,
-          "mainField": "Currency"
+          "mainField": "currency"
         },
         "list": {
           "label": "asset_quotes",
@@ -98,7 +98,11 @@
         "id",
         "name",
         "exchange",
-        "createdAt"
+        "asset_quotes"
+      ],
+      "editRelations": [
+        "exchange",
+        "asset_quotes"
       ],
       "edit": [
         [
@@ -107,10 +111,6 @@
             "size": 6
           }
         ]
-      ],
-      "editRelations": [
-        "exchange",
-        "asset_quotes"
       ]
     }
   },

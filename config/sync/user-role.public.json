@@ -4,10 +4,7 @@
   "type": "public",
   "permissions": [
     {
-      "action": "api::asset-quote.asset-quote.find"
-    },
-    {
-      "action": "api::asset-quote.asset-quote.findOne"
+      "action": "api::asset-quote.asset-quote.search"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

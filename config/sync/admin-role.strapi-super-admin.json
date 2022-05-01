@@ -11,19 +11,13 @@
           "asset",
           "closePrice",
           "closeDate",
-          "Currency"
+          "currency"
         ]
       },
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.delete",
-      "subject": "api::asset-quote.asset-quote",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.publish",
       "subject": "api::asset-quote.asset-quote",
       "properties": {},
       "conditions": []
@@ -36,7 +30,7 @@
           "asset",
           "closePrice",
           "closeDate",
-          "Currency"
+          "currency"
         ]
       },
       "conditions": []
@@ -49,7 +43,7 @@
           "asset",
           "closePrice",
           "closeDate",
-          "Currency"
+          "currency"
         ]
       },
       "conditions": []

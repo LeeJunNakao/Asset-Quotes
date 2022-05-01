@@ -1,0 +1,22 @@
+{
+  "cSpell.words": ["CERTDIR", "dind", "execpath", "Gotardi", "Gryzinsky", "Matheus", "preinstall", "strapi"],
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "yarn.lock",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    ".devcontainer"
+  ],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

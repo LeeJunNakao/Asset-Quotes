@@ -7,8 +7,8 @@
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "Currency",
-      "defaultSortBy": "Currency",
+      "mainField": "currency",
+      "defaultSortBy": "currency",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -63,16 +63,16 @@
           "sortable": true
         }
       },
-      "Currency": {
+      "currency": {
         "edit": {
-          "label": "Currency",
+          "label": "currency",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "Currency",
+          "label": "currency",
           "searchable": true,
           "sortable": true
         }
@@ -129,7 +129,7 @@
         ],
         [
           {
-            "name": "Currency",
+            "name": "currency",
             "size": 6
           }
         ]
