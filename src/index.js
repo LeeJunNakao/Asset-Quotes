@@ -1,6 +1,9 @@
 "use strict";
 
-const { createUser } = require("./admin/create-default-admin");
+const { createUser } = require("../database/seeds/admin/default-admin");
+const {
+  createExchanges,
+} = require("../database/seeds/exchange/default-exchanges");
 
 module.exports = {
   /**
@@ -20,5 +23,6 @@ module.exports = {
    */
   bootstrap({ strapi }) {
     createUser(strapi);
+    createExchanges(strapi);
   },
 };
