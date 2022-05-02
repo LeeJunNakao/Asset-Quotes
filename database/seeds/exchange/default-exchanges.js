@@ -1,6 +1,6 @@
 const { exchangesData } = require("./data");
 
-const createExchanges = async (strapi) => {
+const seedExchanges = async (strapi) => {
   const exchanges = await strapi.query("api::exchange.exchange").findMany({
     where: {
       $or: exchangesData,
@@ -20,4 +20,4 @@ const createExchanges = async (strapi) => {
   }
 };
 
-module.exports = { createExchanges };
+module.exports = { seedExchanges };

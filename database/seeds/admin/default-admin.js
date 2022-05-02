@@ -15,15 +15,26 @@ const createUser = async (strapi) => {
   });
 
   if (!user) {
-    const [superAdminRole] = await strapi.services["admin::role"].find({
+    const superAdminRole = await strapi.services["admin::role"].find({
       name: "Super Admin",
     });
 
     await strapi.service("admin::user").create({
       ...params,
-      roles: [superAdminRole.id],
+      roles: superAdminRole.map((role) => role.id),
     });
   }
 };
 
-module.exports = { createUser };
+const seedDefaultUser = (strapi) => {
+  strapi.db.lifecycles.subscribe({
+    models: ["admin::role"],
+    afterCreate: (event) => {
+      if (event.params.data.name === "Super Admin") {
+        createUser(strapi);
+      }
+    },
+  });
+};
+
+module.exports = { seedDefaultUser };
