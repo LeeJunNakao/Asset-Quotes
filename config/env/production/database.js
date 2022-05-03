@@ -14,6 +14,6 @@ module.exports = ({ env }) => {
       },
     },
   };
-  console.log("!!!!!!!!!!!!!!!!!!!!! prod", data);
+
   return data;
 };
