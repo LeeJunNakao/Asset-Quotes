@@ -8,11 +8,12 @@ module.exports = ({ env }) => {
         database: env("DATABASE_NAME", "asset_price"),
         user: env("DATABASE_USERNAME", "strapi"),
         password: env("DATABASE_PASSWORD", "strapi"),
-        ssl: env.bool("DATABASE_SSL", false),
+        ssl: {
+          rejectUnauthorized: env.bool("DATABASE_SSL_SELF", false),
+        },
       },
     },
   };
-
-  console.log("????????????????????? dev", data);
+  console.log("!!!!!!!!!!!!!!!!!!!!! prod", data);
   return data;
 };
