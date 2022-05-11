@@ -5,7 +5,7 @@ const exchangesData = [
   },
   {
     id: 2,
-    name: "crypto",
+    name: "CRYPTO",
   },
 ];
 
